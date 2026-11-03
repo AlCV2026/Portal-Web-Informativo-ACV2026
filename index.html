@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!--
+    ============================================================
+    SABOR GOURMET · Portal informativo de un restaurante ficticio
+    Proyecto académico · 3.er año de Bachillerato
+    ------------------------------------------------------------
+    Archivos del proyecto:
+      index.html  → estructura y contenido (este archivo)
+      style.css   → colores, diseño y animaciones
+      script.js   → interacciones y validación del formulario
+      img/        → ilustraciones del restaurante (SVG)
+    Para verlo: abre index.html con doble clic en tu navegador.
+    ============================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sabor Gourmet · Cocina ecuatoriana en Guayaquil</title>
+  <meta name="description" content="Sabor Gourmet, restaurante ficticio de cocina ecuatoriana en Guayaquil. Conoce nuestro menú, promociones y horarios.">
+  <meta name="theme-color" content="#5a0f1e">
+  <link rel="icon" type="image/svg+xml" href="sb.jpg">
+
+  <!-- Tipografías de Google Fonts. Sin internet, el navegador usa Georgia y una fuente del sistema. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ICONOS: se definen una sola vez aquí y se reutilizan más abajo con la etiqueta use -->
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+      <symbol id="i-utensils" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></symbol>
+      <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></symbol>
+      <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol>
+      <symbol id="i-up" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+      <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="i-tag" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></symbol>
+    </defs>
+  </svg>
+
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <!-- ===================================================== ENCABEZADO Y NAVEGACIÓN -->
+  <header class="encabezado" id="encabezado">
+    <div class="contenedor encabezado__fila">
+      <a class="marca" href="#inicio" aria-label="Sabor Gourmet, ir al inicio">
+        <img src="sb.jpg" alt="" width="46" height="46">
+        <span class="marca__nombre">Sabor Gourmet</span>
+      </a>
+
+      <!-- Botón de hamburguesa: solo se ve en pantallas pequeñas -->
+      <button class="nav-boton" id="navBoton" type="button" aria-expanded="false" aria-controls="navPrincipal">
+        <svg class="icono" aria-hidden="true"><use href="#i-menu"/></svg>
+        <span class="sr-only">Abrir menú de navegación</span>
+      </button>
+
+      <nav class="nav" id="navPrincipal" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#menu">Menú</a>
+        <a href="#galeria">Galería</a>
+        <a href="#promociones">Promociones</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- ===================================================== A. INICIO -->
+    <section class="hero" id="inicio">
+      <div class="contenedor hero__rejilla">
+        <div class="hero__texto">
+          <h1>El sabor que convierte cada momento en una experiencia</h1>
+          <p class="hero__intro">
+            En Sabor Gourmet cocinamos la costa y la sierra del Ecuador con ingredientes frescos,
+            recetas de familia y el ritmo tranquilo de una mesa compartida. Ven a Guayaquil
+            por un almuerzo rápido o por una tarde larga de conversación.
+          </p>
+          <div class="hero__botones">
+            <a class="btn btn--dorado" href="#menu">Explorar el menú</a>
+            <a class="btn btn--borde" href="#nosotros">Conocer la casa</a>
+          </div>
+          <ul class="hero__datos">
+            <li><svg class="icono" aria-hidden="true"><use href="#i-utensils"/></svg>Platos típicos de la costa y la sierra</li>
+            <li><svg class="icono" aria-hidden="true"><use href="#i-clock"/></svg>Abierto todos los días</li>
+            <li><svg class="icono" aria-hidden="true"><use href="#i-tag"/></svg>Almuerzos desde $5,50</li>
+          </ul>
+        </div>
+
+        <div class="hero__imagen">
+          <!-- El plato gira lentamente (ver .hero__plato en style.css) -->
+          <img class="hero__plato" src="sb.jpg" width="800" height="800"
+               alt="Ceviche de camarón con patacones, limones y un jugo de naranjilla, vistos desde arriba">
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== B. SOBRE NOSOTROS -->
+    <section class="seccion" id="nosotros">
+      <div class="contenedor">
+        <header class="seccion__cabecera">
+          <h2>Sobre nosotros</h2>
+          <p>Una cocina de barrio que creció sin perder el sazón de casa.</p>
+        </header>
+
+        <div class="historia">
+          <figure class="historia__foto">
+            <img src="mesa2.jpg" width="600" height="450" loading="lazy"
+                 alt="Mesa servida con velas, vajilla blanca con borde dorado y flores">
+          </figure>
+          <div class="historia__texto">
+            <h3>Nuestra historia</h3>
+            <p>
+              Sabor Gourmet nació en 2009 en una cocina pequeña del sur de Guayaquil. Doña Elena
+              Amaya preparaba encebollado y seco de pollo para los vecinos de su cuadra, y los
+              domingos la fila llegaba hasta la esquina.
+            </p>
+            <p>
+              Su hijo, el chef Diego Palomino Amaya, estudió gastronomía y volvió con una idea clara:
+              conservar cada receta de la familia y servirla con la presentación de un restaurante
+              fino. En 2015 abrimos el local actual, con salón, terraza y una barra de bebidas.
+            </p>
+            <p>
+              Hoy seguimos comprando el pescado, los plátanos y las hierbas cada mañana, y cada
+              plato sale de la cocina como si fuera para la mesa de la casa.
+            </p>
+          </div>
+        </div>
+
+        <div class="mision-vision">
+          <article class="tarjeta-texto">
+            <svg class="icono icono--grande" aria-hidden="true"><use href="#i-target"/></svg>
+            <h3>Misión</h3>
+            <p>
+              Ofrecer comida ecuatoriana preparada con ingredientes frescos y de productores locales,
+              en un ambiente cálido donde cada persona se sienta atendida como en su propia casa.
+            </p>
+          </article>
+          <article class="tarjeta-texto">
+            <svg class="icono icono--grande" aria-hidden="true"><use href="#i-eye"/></svg>
+            <h3>Visión</h3>
+            <p>
+              Ser el restaurante de referencia de la cocina ecuatoriana en Guayaquil, reconocido por su
+              sabor, su servicio y su respeto por las tradiciones culinarias del país.
+            </p>
+          </article>
+        </div>
+
+        <h3 class="subtitulo">Lo que nos guía</h3>
+        <ul class="valores">
+          <li>
+            <svg class="icono icono--grande" aria-hidden="true"><use href="#i-home"/></svg>
+            <h4>Tradición</h4>
+            <p>Cuidamos las recetas heredadas y explicamos de dónde viene cada plato.</p>
+          </li>
+          <li>
+            <svg class="icono icono--grande" aria-hidden="true"><use href="#i-check"/></svg>
+            <h4>Frescura</h4>
+            <p>Cocinamos con productos del día y no recalentamos preparaciones.</p>
+          </li>
+          <li>
+            <svg class="icono icono--grande" aria-hidden="true"><use href="#i-heart"/></svg>
+            <h4>Calidez</h4>
+            <p>Recibimos a cada cliente por su nombre y atendemos sin prisa.</p>
+          </li>
+          <li>
+            <svg class="icono icono--grande" aria-hidden="true"><use href="#i-users"/></svg>
+            <h4>Compromiso</h4>
+            <p>Trabajamos en equipo y pagamos precios justos a quienes nos proveen.</p>
+          </li>
+        </ul>
+
+        <div class="experiencia">
+          <h3>La experiencia en la mesa</h3>
+          <p>
+            Llegas, te sientas y en pocos minutos ya tienes un jugo frío y una canasta de chifles
+            recién hechos. Puedes elegir el salón con luz tenue, la terraza para el atardecer o
+            la barra si vienes solo y quieres conversar con quien prepara tu bebida. Aquí el
+            almuerzo del día sale rápido, y la cena del fin de semana se toma su tiempo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== C. MENÚ GASTRONÓMICO -->
+    <section class="seccion seccion--clara" id="menu">
+      <div class="contenedor">
+        <header class="seccion__cabecera">
+          <h2>Menú gastronómico</h2>
+          <p>Elige una categoría o recorre la carta completa. Todos los precios están en dólares estadounidenses (USD).</p>
+        </header>
+
+        <!-- Filtros: el JavaScript muestra u oculta categorías según el botón elegido -->
+        <div class="filtros" role="group" aria-label="Filtrar el menú por categoría">
+          <button type="button" class="filtro activo" data-filtro="todo" aria-pressed="true">Toda la carta</button>
+          <button type="button" class="filtro" data-filtro="entradas" aria-pressed="false">Entradas</button>
+          <button type="button" class="filtro" data-filtro="principales" aria-pressed="false">Platos principales</button>
+          <button type="button" class="filtro" data-filtro="tipica" aria-pressed="false">Comida típica ecuatoriana</button>
+          <button type="button" class="filtro" data-filtro="bebidas" aria-pressed="false">Bebidas</button>
+          <button type="button" class="filtro" data-filtro="postres" aria-pressed="false">Postres</button>
+        </div>
+
+        <!-- ENTRADAS -->
+        <div class="categoria" data-categoria="entradas">
+          <h3 class="categoria__titulo">Entradas</h3>
+          <div class="rejilla-menu">
+            <article class="plato">
+              <div class="plato__foto"><img src="images.jpg" width="600" height="450" loading="lazy" alt="Tres empanadas de viento espolvoreadas con azúcar"><span class="precio">$3,50</span></div>
+              <div class="plato__cuerpo"><h4>Empanadas de viento</h4><p>Tres empanadas fritas, rellenas de queso y espolvoreadas con azúcar.</p></div>
+            </article>
+            <article class="plato">
+              <div class="plato__foto"><img src="patacones.jpg" width="600" height="450" loading="lazy" alt="Patacones dorados con queso fresco y salsa de ají"><span class="precio">$4,25</span></div>
+              <div class="plato__cuerpo"><h4>Patacones con queso</h4><p>Plátano verde dos veces frito, con queso fresco.</p></div>
+            </article>
+            <article class="plato">
+              <div class="plato__foto"><img src="chiflesguaca.jpg" width="600" height="450" loading="lazy" alt="Chifles crujientes con un tazón de guacamole"><span class="precio">$3,75</span></div>
+              <div class="plato__cuerpo"><h4>Chifles con guacamole</h4><p>Láminas finas de plátano frito acompañadas de guacamole fresco.</p></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- PLATOS PRINCIPALES -->
+        <div class="categoria" data-categoria="principales">
+          <h3 class="categoria__titulo">Platos principales</h3>
+          <div class="rejilla-menu">
+            <article class="plato">
+              <div class="plato__foto"><img src="churrasco.jpg" width="600" height="450" loading="lazy" alt="Churrasco con huevo frito, arroz, ensalada y patacones"><span class="precio">$9,50</span></div>
+              <div class="plato__cuerpo"><h4>Churrasco ecuatoriano</h4><p>Bistec de carne con huevo frito, arroz y papas fritas.</p></div>
+            </article>
+            <article class="plato">
+              <div class="plato__foto"><img src="pollo_a_la_plancha.jpg" width="600" height="450" loading="lazy" alt="Pechuga de pollo a la plancha con arroz, menestra y ensalada"><span class="precio">$8,00</span></div>
+              <div class="plato__cuerpo"><h4>Pollo a la plancha</h4><p>Pechuga jugosa con arroz, menestra de fréjol y ensalada fresca.</p></div>
+            </article>
+            <article class="plato">
+              <div class="plato__foto"><img src="corvina.jpg" width="600" height="450" loading="lazy" alt="Filete de corvina a la plancha con patacones y limón"><span class="precio">$10,50</span></div>
+              <div class="plato__cuerpo"><h4>Corvina a la plancha</h4><p>Filete de corvina con hierbas, patacones, ensalada y limón.</p></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- COMIDA TÍPICA ECUATORIANA -->
+        <div class="categoria" data-categoria="tipica">
+          <h3 class="categoria__titulo">Comida típica ecuatoriana</h3>
+          <div class="rejilla-menu">
+            <article class="plato">
+              <div class="plato__foto"><img src="ncebolladoal.jpg" width="600" height="450" loading="lazy" alt="Plato hondo de encebollado con cebolla morada y cilantro"><span class="precio">$5,50</span></div>
+              <div class="plato__cuerpo"><h4>Encebollado de albacora</h4><p>Sopa de pescado con yuca, cebolla encurtida, cilantro y limón.</p></div>
+            </article>
+            <article class="plato">
+              <div class="plato__foto"><img src="ceviche.jpg" width="600" height="450" loading="lazy" alt="Ceviche de camarón con cebolla morada y tostado"><span class="precio">$8,50</span></div>
+              <div class="plato__cuerpo"><h4>Ceviche de camarón</h4><p>Camarones en jugo de limón con cebolla morada, tomate, salsa de tomate, chifle, canguil y tostado.</p></div>
+            </article>
+            <article class="plato">
+              <div class="plato__foto"><img src="secodpollo.jpg" width="600" height="450" loading="lazy" alt="Seco de pollo con arroz, maduro y aguacate"><span class="precio">$7,00</span></div>
+              <div class="plato__cuerpo"><h4>Seco de pollo</h4><p>Pollo guisado en cerveza y cilantro, con arroz, maduro y aguacate.</p></div>
+            </article>
+            <article class="plato">
+              <div class="plato__foto"><img src="bolonmix.jpg" width="600" height="450" loading="lazy" alt="Dos bolones de verde con huevo frito y una taza de café"><span class="precio">$3,50</span></div>
+              <div class="plato__cuerpo"><h4>Bolón mixto</h4><p>Bola de plátano verde con queso y chicharrón, huevo frito y café.</p></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- BEBIDAS -->
+        <div class="categoria" data-categoria="bebidas">
+          <h3 class="categoria__titulo">Bebidas</h3>
+          <div class="rejilla-menu">
+            <article class="plato">
+              <div class="plato__foto"><img src="jugodenaranjilla.jpg" width="600" height="450" loading="lazy" alt="Vaso de jugo de naranjilla con hielo y una naranjilla al lado"><span class="precio">$2,25</span></div>
+              <div class="plato__cuerpo"><h4>Jugo de naranjilla</h4><p>Naranjilla natural licuada con hielo, la bebida más pedida de la casa.</p></div>
+            </article>
+            <article class="plato">
+              <div class="plato__foto"><img src="limonada.jpg" width="600" height="450" loading="lazy" alt="Limonada con hojas de hierbaluisa y rodajas de limón"><span class="precio">$2,00</span></div>
+              <div class="plato__cuerpo"><h4>Limonada de la casa</h4><p>Limón sutil exprimido al momento con hierbaluisa y poca azúcar.</p></div>
+            </article>
+            <article class="plato">
+              <div class="plato__foto"><img src="morocho.jpg" width="600" height="450" loading="lazy" alt="Taza de morocho caliente con ramas de canela"><span class="precio">$2,50</span></div>
+              <div class="plato__cuerpo"><h4>Morocho caliente</h4><p>Bebida espesa de maíz, leche y canela, ideal para las tardes frescas.</p></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- POSTRES -->
+        <div class="categoria" data-categoria="postres">
+          <h3 class="categoria__titulo">Postres</h3>
+          <div class="rejilla-menu">
+            <article class="plato">
+              <div class="plato__foto"><img src="heladopai.jpg" width="600" height="450" loading="lazy" alt="Helado de paila en un tazón de cobre con tres bolas de colores"><span class="precio">$2,75</span></div>
+              <div class="plato__cuerpo"><h4>Helado de paila</h4><p>Tres bolas artesanales de mora, coco y maracuyá en tazón de cobre.</p></div>
+            </article>
+            <article class="plato">
+              <div class="plato__foto"><img src="tresleches.jpg" width="600" height="450" loading="lazy" alt="Porción de pastel de tres leches"><span class="precio">$3,75</span></div>
+              <div class="plato__cuerpo"><h4>Pastel de tres leches</h4><p>Bizcocho húmedo bañado en tres leches y coronado con fresa.</p></div>
+            </article>
+            <article class="plato">
+              <div class="plato__foto"><img src="flan.jpg" width="600" height="450" loading="lazy" alt="Flan de coco cubierto de caramelo sobre un plato blanco"><span class="precio">$3,25</span></div>
+              <div class="plato__cuerpo"><h4>Flan de coco</h4><p>Flan cremoso de coco rallado con una capa de caramelo oscuro.</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== D. GALERÍA -->
+    <section class="seccion" id="galeria">
+      <div class="contenedor">
+        <header class="seccion__cabecera">
+          <h2>Galería</h2>
+          <p>Los platos que más piden nuestros clientes y los rincones donde los sirven. Toca una imagen para verla en grande.</p>
+        </header>
+
+        <div class="filtros" role="group" aria-label="Filtrar la galería">
+          <button type="button" class="filtro activo" data-galeria="todo" aria-pressed="true">Todo</button>
+          <button type="button" class="filtro" data-galeria="platos" aria-pressed="false">Platos</button>
+          <button type="button" class="filtro" data-galeria="local" aria-pressed="false">El local</button>
+        </div>
+
+        <ul class="galeria" id="galeria-lista">
+          <li data-tipo="platos"><button type="button" class="galeria__item" data-pie="Ceviche de camarón, el plato más pedido del fin de semana"><img src="ceviche.jpg" width="600" height="450" loading="lazy" alt="Ceviche de camarón"></button></li>
+          <li data-tipo="local"><button type="button" class="galeria__item" data-pie="Mesa para tres personas"><img src="mesa2.jpg" width="600" height="450" loading="lazy" alt="Salón interior con lámparas colgantes y mesas"></button></li>
+          <li data-tipo="platos"><button type="button" class="galeria__item" data-pie="Chifles con Guacamole hecho con la salsa secreta del chef Amaya"><img src="chiflesguaca.jpg" width="600" height="450" loading="lazy" alt="Encebollado de albacora"></button></li>
+          <li data-tipo="local"><button type="button" class="galeria__item" data-pie="Asistencia publica al local"><img src="mesa1.jpg" width="600" height="450" loading="lazy" alt="Mesas con abastecimiento total del local"></button></li>
+          <li data-tipo="platos"><button type="button" class="galeria__item" data-pie="Patacones con queso"><img src="patacones.jpg" width="600" height="450" loading="lazy" alt="Churrasco ecuatoriano"></button></li>
+          <li data-tipo="local"><button type="button" class="galeria__item" data-pie="La barra de bebidas, ideal para venir solo o en pareja"><img src="barra.jpg" width="600" height="450" loading="lazy" alt="Barra de bebidas con botellas"></button></li>
+          <li data-tipo="platos"><button type="button" class="galeria__item" data-pie="Delicioso Churazco"><img src="churrasco.jpg" width="600" height="450" loading="lazy" alt="Helado de paila"></button></li>
+          <li data-tipo="local"><button type="button" class="galeria__item" data-pie="La terraza al atardecer, con luces de cuerda"><img src="Terraza.jpg" width="600" height="450" loading="lazy" alt="Mesa servida en terraza"></button></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Visor de imágenes (ventana emergente nativa <dialog>) -->
+    <dialog class="visor" id="visor" aria-label="Imagen ampliada">
+      <button type="button" class="visor__cerrar" id="visorCerrar" aria-label="Cerrar imagen"><svg class="icono" aria-hidden="true"><use href="#i-close"/></svg></button>
+      <button type="button" class="visor__flecha visor__flecha--izq" id="visorAnterior" aria-label="Imagen anterior">‹</button>
+      <figure>
+        <img id="visorImagen" src="" alt="">
+        <figcaption id="visorPie"></figcaption>
+      </figure>
+      <button type="button" class="visor__flecha visor__flecha--der" id="visorSiguiente" aria-label="Imagen siguiente">›</button>
+    </dialog>
+
+    <!-- ===================================================== E. PROMOCIONES Y ESPECIALIDADES -->
+    <section class="seccion seccion--vino" id="promociones">
+      <div class="contenedor">
+        <header class="seccion__cabecera">
+          <h2>Promociones y especialidades</h2>
+          <p>Ofertas de demostración para esta semana. Todos los precios son ficticios.</p>
+        </header>
+
+        <!-- Plato destacado de la semana -->
+        <article class="destacado">
+          <div class="destacado__foto">
+            <img src="ceviche.jpg" width="600" height="450" loading="lazy" alt="Ceviche de camarón, plato destacado de la semana">
+          </div>
+          <div class="destacado__texto">
+            <span class="sello">Plato de la semana</span>
+            <h3>Ceviche de camarón</h3>
+            <p>
+              Camarones frescos curtidos en limón, con cebolla morada, tomate y cilantro.
+              Lo servimos con tostado y chifles. Solo esta semana, con precio especial.
+            </p>
+            <p class="destacado__precio"><s>$8,50</s> <strong>$7,50</strong></p>
+            <a class="btn btn--dorado" href="#menu">Ver en el menú</a>
+          </div>
+        </article>
+
+        <!-- Combos -->
+        <h3 class="subtitulo subtitulo--claro">Combos</h3>
+        <div class="combos">
+          <article class="combo">
+            <h4>Almuerzo del día</h4>
+            <p class="combo__precio">$5,50</p>
+            <ul>
+              <li>Sopa del día</li>
+              <li>Plato fuerte con arroz y ensalada</li>
+              <li>Jugo natural</li>
+            </ul>
+            <p class="combo__nota">De lunes a viernes, de 11:00 a 15:00.</p>
+          </article>
+          <article class="combo combo--principal">
+            <h4>Combo pareja</h4>
+            <p class="combo__precio">$22,90</p>
+            <ul>
+              <li>Dos platos principales a elección</li>
+              <li>Dos bebidas</li>
+              <li>Un postre para compartir</li>
+            </ul>
+            <p class="combo__nota">Todos los días, desde las 17:00.</p>
+          </article>
+          <article class="combo">
+            <h4>Combo familiar</h4>
+            <p class="combo__precio">$39,90</p>
+            <ul>
+              <li>Cuatro platos principales</li>
+              <li>Una jarra de jugo de naranjilla</li>
+              <li>Cuatro bolas de helado de paila</li>
+            </ul>
+            <p class="combo__nota">Sábados y domingos.</p>
+          </article>
+        </div>
+
+        <!-- Recomendaciones del chef -->
+        <h3 class="subtitulo subtitulo--claro">Recomendaciones del chef Diego Palomino Amaya</h3>
+        <ul class="chef">
+          <li>
+            <img src="secodpollo.jpg" width="600" height="450" loading="lazy" alt="Seco de pollo">
+            <div>
+              <h4><svg class="icono icono--dorado" aria-hidden="true"><use href="#i-star"/></svg>Seco de pollo</h4>
+              <p>Es la receta de mi madre. Pídelo con maduro y aguacate.</p>
+            </div>
+          </li>
+          <li>
+            <img src="corvina.jpg" width="600" height="450" loading="lazy" alt="Corvina a la plancha">
+            <div>
+              <h4><svg class="icono icono--dorado" aria-hidden="true"><use href="#i-star"/></svg>Corvina a la plancha</h4>
+              <p>Pescado del día con hierbas. Mejor con una limonada bien fría.</p>
+            </div>
+          </li>
+          <li>
+            <img src="flan.jpg" width="600" height="450" loading="lazy" alt="Flan de coco">
+            <div>
+              <h4><svg class="icono icono--dorado" aria-hidden="true"><use href="#i-star"/></svg>Flan de coco</h4>
+              <p>Para cerrar la comida: cremoso, con el caramelo bien oscuro.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================================================== F. CONTACTO + G. FORMULARIO -->
+    <section class="seccion" id="contacto">
+      <div class="contenedor">
+        <header class="seccion__cabecera">
+          <h2>Contacto</h2>
+          <p>Todos los datos de esta sección son ficticios y sirven solo para el proyecto académico.</p>
+        </header>
+
+        <div class="contacto">
+          <!-- Datos de contacto -->
+          <div class="contacto__datos">
+            <ul class="lista-contacto">
+              <li>
+                <svg class="icono" aria-hidden="true"><use href="#i-pin"/></svg>
+                <div><strong>Dirección</strong><br>Av. de los Sabores 123 y Calle Las Palmeras, Guayaquil, Ecuador</div>
+              </li>
+              <li>
+                <svg class="icono" aria-hidden="true"><use href="#i-phone"/></svg>
+                <div><strong>Teléfono</strong><br>+593 99 700 7148 </div>
+              </li>
+              <li>
+                <svg class="icono" aria-hidden="true"><use href="#i-mail"/></svg>
+                <div><strong>Correo electrónico</strong><br>contacto@saborgourmet.com</div>
+              </li>
+            </ul>
+
+            <div class="horarios">
+              <h3><svg class="icono" aria-hidden="true"><use href="#i-clock"/></svg>Horarios de atención <span class="estado" id="estadoLocal" hidden></span></h3>
+              <!-- data-dias: números de día (0 = domingo … 6 = sábado). El JavaScript marca la fila de hoy. -->
+              <table>
+                <tbody>
+                  <tr data-dias="1,2,3,4" data-abre="11:00" data-cierra="21:00"><th scope="row">Lunes a jueves</th><td>11:00 – 21:00</td></tr>
+                  <tr data-dias="5,6" data-abre="11:00" data-cierra="23:00"><th scope="row">Viernes y sábado</th><td>11:00 – 23:00</td></tr>
+                  <tr data-dias="0" data-abre="10:00" data-cierra="18:00"><th scope="row">Domingo</th><td>10:00 – 18:00</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="redes">
+  <p>Síguenos:</p>
+  <ul>
+    <li><a href="https://www.instagram.com/sebas_____ca?mdxt=MnBhZ2hvaGtodDJ1" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Sabor Gourmet"><svg class="icono" aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
+    <li><a href="https://www.facebook.com/share/1CBsKY7fA9/" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Sabor Gourmet"><svg class="icono" aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
+    <li><a href="https://wa.me/qr/27TTMV3W6JXDB1" target="_blank" rel="noopener noreferrer" aria-label="Escribirnos por WhatsApp"><svg class="icono" aria-hidden="true"><use href="#i-chat"/></svg></a></li>
+  </ul>
+</div>
+</div>
+
+      <figure class="mapa">
+  <img src="direccionficticia.png" width="520" height="420" loading="lazy"
+       alt="Mapa ilustrativo con la ubicación de ejemplo del restaurante: Av. de los Sabores y Calle Las Palmeras, Guayaquil">
+  <figcaption>Ubicación ilustrativa de ejemplo. No corresponde a un local real.</figcaption>
+</figure>
+</div>
+
+
+        <!-- G. Formulario de contacto -->
+        <div class="formulario-caja">
+          <h3>Escríbenos</h3>
+          <p class="formulario-aviso">
+            Este formulario es una demostración: el sitio no tiene un servidor configurado,
+            así que el mensaje no se envía a ningún lugar. Solo comprobamos que los datos estén completos y bien escritos.
+          </p>
+
+          <!-- novalidate: desactiva los avisos del navegador para usar nuestros mensajes en script.js -->
+          <form id="formContacto" novalidate>
+            <div class="campo">
+              <label for="nombre">Nombre completo</label>
+              <input type="text" id="nombre" name="nombre" autocomplete="name" aria-describedby="error-nombre" required>
+              <p class="error" id="error-nombre" role="alert"></p>
+            </div>
+            <div class="campo">
+              <label for="correo">Correo electrónico</label>
+              <input type="email" id="correo" name="correo" autocomplete="email" aria-describedby="error-correo" required>
+              <p class="error" id="error-correo" role="alert"></p>
+            </div>
+            <div class="campo campo--ancho">
+              <label for="asunto">Asunto</label>
+              <input type="text" id="asunto" name="asunto" aria-describedby="error-asunto" required>
+              <p class="error" id="error-asunto" role="alert"></p>
+            </div>
+            <div class="campo campo--ancho">
+              <label for="mensaje">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" rows="5" maxlength="500" aria-describedby="error-mensaje contador" required></textarea>
+              <div class="campo__pie">
+                <p class="error" id="error-mensaje" role="alert"></p>
+                <span class="contador" id="contador">0 / 500</span>
+              </div>
+            </div>
+            <div class="campo campo--ancho">
+              <button type="submit" class="btn btn--vino">Enviar mensaje</button>
+            </div>
+          </form>
+
+          <!-- Aquí se muestra el resultado de la validación -->
+          <div class="resultado" id="resultadoForm" role="status" aria-live="polite" hidden></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== PROYECTO ACADÉMICO -->
+    <!-- EDITA AQUÍ: reemplaza cada texto entre corchetes por los datos reales del grupo. -->
+    <section class="proyecto" id="proyecto" aria-labelledby="proyecto-titulo">
+      <div class="contenedor">
+        <h2 id="proyecto-titulo">Sobre este proyecto</h2>
+        <dl>
+          <div><dt>Institución educativa</dt><dd>VICENTE ROCAFUERTE</dd></div>
+          <div><dt>Curso</dt><dd>3.er año de Bachillerato</dd></div>
+          <div><dt>Especialidad</dt><dd>INFORMÁTICA</dd></div>
+          <div><dt>Integrantes</dt><dd>ALVARADO ANDINO KENDRIN CASTRO ARROYO SEBASTIÁN VERA ARELLANO ASHLEY</dd></div>
+          <div><dt>Asignatura</dt><dd>FISICA</dd></div>
+          <div><dt>Docente</dt><dd>LCDO. JEFFERSON CONSTANTINE</dd></div>
+          <div><dt>Año lectivo</dt><dd>2026-2027</dd></div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================================================== PIE DE PÁGINA -->
+  <footer class="pie">
+    <div class="contenedor pie__fila">
+      <a class="marca" href="#inicio" aria-label="Sabor Gourmet, volver al inicio">
+        <img src="sb.jpg" alt="" width="40" height="40">
+        <span class="marca__nombre">Sabor Gourmet</span>
+      </a>
+      <nav aria-label="Enlaces del pie de página">
+        <a href="#nosotros">Nosotros</a>
+        <a href="#menu">Menú</a>
+        <a href="#galeria">Galería</a>
+        <a href="#promociones">Promociones</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+    <p class="pie__nota">Restaurante ficticio creado con fines educativos. Los nombres, precios, direcciones y contactos son de ejemplo.</p>
+  </footer>
+
+  <!-- Botón para volver al inicio (aparece al bajar la página) -->
+  <a href="#inicio" class="subir" id="botonSubir" aria-label="Volver al inicio de la página">
+    <svg class="icono" aria-hidden="true"><use href="#i-up"/></svg>
+  </a>
+
+  <!-- Aviso breve para los enlaces de demostración -->
+  <div class="aviso" id="aviso" role="status" aria-live="polite" hidden></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
